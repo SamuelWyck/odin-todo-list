@@ -12,17 +12,22 @@ function createProject(title, setId=null) {
     let addTask = function(title, description, dueYear, dueMonth, dueDay, priority) {
         const task = new Task(title, description, Number(dueYear), Number(dueMonth), Number(dueDay), priority);
         taskList.push(task);
+        return task;
     };
 
     let removeTask = function(id) {
         let newTaskList = [];
+        let removedTask = null;
 
         for (let task of taskList) {
             if (task.id !== id) {
                 newTaskList.push(task);
+            } else {
+                removedTask = task;
             }
         }
         taskList = newTaskList;
+        return removedTask;
     };
 
     let getTask = function(id) {
