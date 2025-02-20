@@ -1,7 +1,11 @@
 import Task from "./task.js";
 
-function createProject(title) {
+function createProject(title, setId=null) {
     let projectTitle = title;
+    let id = setId;
+    if (id === null) {
+        id = Date.now();
+    }
     let taskList = [];
 
 
@@ -52,6 +56,7 @@ function createProject(title) {
     };
 
     return {
+        "id": id,
         "title": projectTitle,
         "addTask": addTask,
         "removeTask": removeTask,
