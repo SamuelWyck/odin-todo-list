@@ -36,6 +36,9 @@ function createProject(title) {
 
     let getCompletionPercentage = function() {
         let totalTasks = taskList.length;
+        if (totalTasks === 0) {
+            return "N/A";
+        }
         let completedTasks = 0;
 
         for (let task of taskList) {
@@ -44,7 +47,8 @@ function createProject(title) {
             }
         }
 
-        return Math.round((completedTasks / totalTasks) * 100);
+        const percent = Math.round((completedTasks / totalTasks) * 100);
+        return `${percent}%`;
     };
 
     return {
