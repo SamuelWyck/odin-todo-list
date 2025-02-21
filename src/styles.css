@@ -189,12 +189,12 @@ footer {
     font-weight: inherit;
     cursor: pointer;
     border-radius: 5px;
-    position: relative;
     font-family: "roboto", sans-serif;
 }
 
 .task-card button:hover {
     color: #cf0404;
+    background-color: lightgray;
 }
 
 .done::after {
