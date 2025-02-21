@@ -1,3 +1,5 @@
+import createProject from "./project.js";
+import Task from "./task.js";
 
 
 const storageManager = (function() {
@@ -39,17 +41,43 @@ const storageManager = (function() {
     //     localStorage.removeItem(key);
     // };
 
+    let reviveTaskObject = function(taskData) {
+        const task = new Task(
+            taskData.title, 
+            taskData.description, 
+            0, 0, 0, 
+            taskData.priority, taskData.id
+        );
+        task.dueDate = new Date(taskData.dueDate);
+        return task;
+    };
+
+    let populateTaskList = function(taskList) {
+        const newTaskList = [];
+
+        for (taskData of taskList) {
+            const task = reviveTaskObject(taskData);
+            newTaskList.push(task);
+        }
+
+        return newTaskList;
+    };
+
+    let reviveProjectObject = function(key) {
+        const JSONData = localStorage.getItem(key);
+        const projectData = JSON.parse(JSONData);
+
+        const project = createProject(projectData.title, projectData.id);
+        project.taskList = populateTaskList(projectData.taskList);
+        return project;
+    };
+
     let getProjects = function() {
         const projectList = [];
 
         for (let i = 0; i < localStorage.length; i += 1) {
             const key = localStorage.key(i);
-            const [prefix, id] = key.split(delimiter);
-            if (prefix !== projectKeyPrefix) {
-                continue;
-            }
-            const JSONData = localStorage.getItem(key);
-            const project = JSON.parse(JSONData);
+            const project = reviveProjectObject(key);
             projectList.push(project);
         }
 
