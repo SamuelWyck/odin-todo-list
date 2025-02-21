@@ -32,7 +32,8 @@ header {
     justify-content: space-between;
     column-gap: 2rem;
     background-color: white;
-    border-bottom: 4px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    box-shadow: 0px 1px 10px 0px gray;
     padding: 1rem clamp(1rem, 15vw, 15rem);
 }
 
@@ -58,16 +59,22 @@ header {
 
 .title {
     font-size: 2.5rem;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
     color: #cf0404;
     font-weight: bold;
     position: relative;
-    top: -2px;
+    top: -1px;
+}
+
+@media only screen and (max-width: 650px) {
+    .title {
+        display: none;
+    }
 }
 
 nav {
     display: flex;
     flex-wrap: wrap;
-    column-gap: 1rem;
     justify-content: center;
 }
 
@@ -78,4 +85,19 @@ nav button {
     color: #cf0404;
     font-weight: bold;
     cursor: pointer;
+    padding: 0 .5rem;
+}
+
+nav button:hover {
+    color: gray;
+}
+
+footer {
+    grid-row: -2 / -1;
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+    padding: 1rem;
+    color: #cf0404;
 }
