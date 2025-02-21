@@ -84,9 +84,14 @@ const storageManager = (function() {
         return projectList;
     };
 
+    let cleanStorage = function() {
+        localStorage.clear();
+    };
+
     return {
         "saveProject": saveProject,
         "removeProject": removeProject,
+        "cleanStorage": cleanStorage,
         "getProjects": getProjects,
     };
 })();
