@@ -25,6 +25,12 @@ html {
     grid-template-rows: min-content 1fr min-content;
 }
 
+@media only screen and (max-width: 900px) {
+    .main {
+        grid-template-columns: 7fr 3fr;
+    }
+}
+
 header {
     grid-column: 1/-1;
     display: flex;
@@ -100,5 +106,41 @@ footer {
     justify-content: center;
     background-color: lightgray;
     padding: 1rem;
+    color: #cf0404;
+}
+
+.debug {
+    border: 1px solid black;
+}
+
+.todo-list {
+    grid-column: -3 / -2;
+    padding-top: 3vw;
+}
+
+.project-info, .project-footer {
+    background-color: lightgray;
+    padding: .5rem 2rem;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: bold;
+    border-radius: 20px 20px 0px 0px;
+    box-shadow: 0px 0px 4px 0px gray;
+}
+
+.project-footer {
+    border-radius: 0px 0px 20px 20px;
+}
+
+.project-footer button {
+    background-color: inherit;
+    border: none;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.project-footer button:hover {
     color: #cf0404;
 }
