@@ -39,10 +39,6 @@ function createProject(title, setId=null) {
         return null;
     };
 
-    let getTaskList = function() {
-        return taskList;
-    };
-
     let getCompletionPercentage = function() {
         let totalTasks = taskList.length;
         if (totalTasks === 0) {
@@ -63,9 +59,9 @@ function createProject(title, setId=null) {
     return {
         "id": id,
         "title": projectTitle,
+        "taskList": taskList,
         "addTask": addTask,
         "removeTask": removeTask,
-        "getTaskList": getTaskList,
         "getCompletionPercentage": getCompletionPercentage,
     };
 }
