@@ -24,10 +24,10 @@ const storageManager = (function() {
         localStorage.setItem(key, JSONData);
     };
 
-    let removeProject = function(projectId) {
-        const key = getProjectKey(projectId);
-        localStorage.removeItem(key);
-    };
+    // let removeProject = function(projectId) {
+    //     const key = getProjectKey(projectId);
+    //     localStorage.removeItem(key);
+    // };
 
     // let addTask = function(projectId, task) {
     //     const JSONData = JSON.stringify(task);
@@ -88,10 +88,16 @@ const storageManager = (function() {
         localStorage.clear();
     };
 
+    let saveProjects = function(projectList) {
+        cleanStorage();
+        
+        for (let project of projectList) {
+            saveProject(project);
+        }
+    }
+
     return {
-        "saveProject": saveProject,
-        "removeProject": removeProject,
-        "cleanStorage": cleanStorage,
+        "saveProjects": saveProjects,
         "getProjects": getProjects,
     };
 })();
