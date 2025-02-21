@@ -29,6 +29,9 @@ html {
     .main {
         grid-template-columns: 7fr 3fr;
     }
+    .project-card {
+        margin-left: .5rem;
+    }
 }
 
 header {
@@ -92,7 +95,7 @@ nav button {
     color: #cf0404;
     font-weight: bold;
     cursor: pointer;
-    padding: 0 .5rem;
+    padding: 0 1rem;
 }
 
 nav button:hover {
@@ -126,7 +129,6 @@ footer {
     font-size: clamp(1rem, 3vw, 1.5rem);
     font-weight: bold;
     border-radius: 20px 20px 0px 0px;
-    box-shadow: 0px 0px 4px 0px gray;
 }
 
 .project-footer {
@@ -143,4 +145,64 @@ footer {
 
 .project-footer button:hover {
     color: #cf0404;
+}
+
+.project-card {
+    box-shadow: 0px 0px 4px 0px gray;
+    border-radius: 20px;
+}
+
+.project-tasks {
+    max-height: 450px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.task-card {
+    display: flex;
+    padding: 1rem;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    background-color: white;
+    cursor: pointer;
+}
+
+.task-title, .project-title {
+    max-width: 50%;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.task-title {
+    max-width: 35%;
+}
+
+.task-card button {
+    border: none;
+    background-color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+    border-radius: 5px;
+    position: relative;
+    font-family: "roboto", sans-serif;
+}
+
+.task-card button:hover {
+    color: #cf0404;
+}
+
+.done::after {
+    content: "✓";
+    position: relative;
+    top: 2px;
+}
+
+.task-card:hover {
+  font-size: 1.5rem;
 }
