@@ -198,7 +198,7 @@ footer {
 }
 
 .done::after {
-    content: "✓";
+    content: "✔";
     position: relative;
     top: 2px;
 }
