@@ -10,21 +10,26 @@ const todoList = (function() {
     let addProject = function(title) {
         const project = createProject(title);
         projectList.push(project);
+        return project;
     };
 
     let removeProject = function(id) {
         if (id === defaultProjectId) {
-            return;
+            return null;
         }
         let newProjectList = []
+        let removedProject = null;
 
         for (let project of projectList) {
             if (project.id !== id) {
                 newProjectList.push(project);
+            } else {
+                removedProject = project;
             }
         }
 
         projectList = newProjectList;
+        return removedProject;
     };
 
     let editProjectTitle = function(id, title) {
