@@ -17,7 +17,7 @@ const storageManager = (function() {
     //     return taskKeyPrefix + delimiter + String(taskId) + delimiter + String(projectId);
     // };
 
-    let addProject = function(project) {
+    let saveProject = function(project) {
         const JSONData = JSON.stringify(project);
         const key = getProjectKey(project.id);
 
@@ -85,7 +85,7 @@ const storageManager = (function() {
     };
 
     return {
-        "addProject": addProject,
+        "saveProject": saveProject,
         "removeProject": removeProject,
         "getProjects": getProjects,
     };
