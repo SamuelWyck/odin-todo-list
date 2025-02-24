@@ -63,6 +63,7 @@ function createProject(title, setId=null) {
         "addTask": addTask,
         "removeTask": removeTask,
         "getCompletionPercentage": getCompletionPercentage,
+        "getTask": getTask,
     };
 }
 
