@@ -1,3 +1,4 @@
+import { se } from "date-fns/locale";
 
 
 const createTaskForm = function() {
@@ -115,13 +116,35 @@ const createTaskForm = function() {
         return section;
     };
 
+    let createTextArea = function(value, name, id) {
+        const textArea = document.createElement("textarea");
+        textArea.value = value;
+        textArea.name = name;
+        textArea.id = id;
+        return textArea;
+    };
+
+    let createTextAreaSection = function(task) {
+        const section = document.createElement("div");
+
+        let textValue = "";
+        if (task !== null) {
+            textValue = task.description;
+        }
+
+        section.appendChild(createLabel("Description", "description"));
+        section.appendChild(createTextArea(textValue, "description", "description"));
+
+        return section;
+    };
+
     let createFormElement = function(edit, task) {
         const form = document.createElement("form");
         form.action = "#";
 
         form.appendChild(createTitleAndDateSection(task));
         form.appendChild(createPrioritySection(task));
-        //textarea
+        form.appendChild(createTextAreaSection(task));
         form.appendChild(createBtnSection(edit));
     };
     
