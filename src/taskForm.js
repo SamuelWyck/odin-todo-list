@@ -1,7 +1,6 @@
-import { se } from "date-fns/locale";
 
 
-const createTaskForm = function() {
+const taskFormFactory = (function() {
 
     let createBtn = function(text, type, className) {
         const btn = document.createElement("button");
@@ -175,7 +174,7 @@ const createTaskForm = function() {
     return {
         "createTaskFormPopup": createTaskFormPopup,
     };
-};
+})();
 
 
-export default createTaskForm;
+export default taskFormFactory;
