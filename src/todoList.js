@@ -6,10 +6,10 @@ const todoList = (function() {
     let projectList = [];
 
     const defaultProject = createProject("General Tasks", defaultProjectId);
-    defaultProject.addTask("Clean Dishwasher", "Clean out filter and spray nozzels in the dishwasher.", 2025, 1, 28, 0);
-    defaultProject.addTask("Paint Living Room", "Paint the Living Room in two coats of peach colored paint.", 2025, 7, 13, 1);
-    defaultProject.addTask("Clean out Refrigerator", "Clean out the moldy food in the refrigerator.", 2025, 4, 5, 2);
-    defaultProject.addTask("Take over the World", "Complete evil plan to take over the world.", 2026, 11, 10, 3);
+    defaultProject.addTask("Clean Dishwasher", "Clean out filter and spray nozzels in the dishwasher.", 2025, 1, 28, 0, 0);
+    defaultProject.addTask("Paint Living Room", "Paint the Living Room in two coats of peach colored paint.", 2025, 7, 13, 1, 1);
+    defaultProject.addTask("Clean out Refrigerator", "Clean out the moldy food in the refrigerator.", 2025, 4, 5, 2, 2);
+    defaultProject.addTask("Take over the World", "Complete evil plan to take over the world.", 2026, 11, 10, 3, 3);
 
     projectList.push(defaultProject);
 
