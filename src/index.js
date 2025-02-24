@@ -1,4 +1,5 @@
 import "./styles.css";
+import Task from "./task";
 // import storageManager from "./localStorage.js";
 // import createProject from "./project.js";
 // import Task from "./task.js";
@@ -25,7 +26,8 @@ import "./styles.css";
 // console.log(newTask.dueDate)
 // console.log(newTask.getDueDate())
 
-
+// const task = new Task("we", "we we", 2025, 3, 13)
+// console.log(task.getDueDate())
 
 
 
