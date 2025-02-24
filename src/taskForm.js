@@ -105,11 +105,15 @@ const createTaskForm = function() {
     };
     
     let createTaskFormPopup = function(edit=false) {
+        const body = document.querySelector("body");
+        
         const popup = document.createElement("div");
         popup.classList.add("popup");
 
         popup.appendChild(createExitBtnSection());
         popup.appendChild(createFormElement(edit));
+
+        body.appendChild(popup);
     };
 
     return {
