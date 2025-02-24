@@ -18,7 +18,7 @@ Task.prototype.toggleCompleted = function() {
 };
 
 Task.prototype.getDueDate = function() {
-    return format(this.dueDate, "MMMM do yyyy");
+    return format(this.dueDate, "MMM do yyyy");
 };
 
 Task.prototype.setDueDate = function(year, month, day) {
