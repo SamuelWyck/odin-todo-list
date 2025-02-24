@@ -1,7 +1,8 @@
 import "./styles.css";
-import Task from "./task";
-// import storageManager from "./localStorage.js";
-// import createProject from "./project.js";
+import storageManager from "./localStorage.js";
+import createProject from "./project.js";
+import todo from "./todoList.js";
+import createDOMManager from "./DOMManager.js";
 // import Task from "./task.js";
 
 
@@ -33,3 +34,46 @@ import Task from "./task";
 
 // localStorage.clear()
 
+
+const app = (function() {
+    const storage = storageManager;
+    const todoList = todo;
+    const DOMManager = createDOMManager();
+
+    DOMManager.DOMLoadedEvent(loadedEvent);
+    DOMManager.taskClickEvent(function() {}, toggleTaskDone)
+
+
+    function loadedEvent() {
+        loadData();
+        const project = todoList.getProject(todoList.getDefaultProjectId());
+        DOMManager.displayProject(project);
+    };
+    
+    function loadData() {
+        const projectList = storage.getProjects();
+        if (projectList.length > 0) {
+            todoList.setProjectList(projectList);
+        }
+    };
+
+    function getTaskId(event) {
+        if (event.target.matches(".task-card")) {
+            return event.target.dataset.taskid;
+        }
+        return event.target.parentNode.dataset.taskid;
+    };
+
+    function toggleTaskDone(event, projectId) {
+        const taskId = getTaskId(event);
+        const project = todoList.getProject(projectId);
+        const task = project.getTask(taskId);
+        task.toggleCompleted();
+        DOMManager.updateTask(task);
+
+        const newPercentage = project.getCompletionPercentage();
+        DOMManager.updateProjectPercentage(newPercentage);
+    };
+
+
+})();
