@@ -85,6 +85,8 @@ const app = (function() {
     function removeTaskEvent(projectId, taskId) {
         const project = todoList.getProject(projectId);
         project.removeTask(taskId);
+        const newPercentage = project.getCompletionPercentage();
+        return newPercentage;
     };
 
     function addTaskEvent() {
