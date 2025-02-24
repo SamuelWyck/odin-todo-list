@@ -179,7 +179,7 @@ footer {
 }
 
 .task-title {
-    max-width: 35%;
+    width: 35%;
 }
 
 .task-card button {
