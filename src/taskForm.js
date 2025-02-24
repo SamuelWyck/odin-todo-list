@@ -138,9 +138,21 @@ const createTaskForm = function() {
         return section;
     };
 
+    let createHiddenInput = function(name, value) {
+        const input = document.createElement("input");
+        input.hidden = true;
+        input.name = name;
+        input.value = value;
+        return input;
+    };
+
     let createFormElement = function(edit, task) {
         const form = document.createElement("form");
         form.action = "#";
+
+        if (task !== null) {
+            form.appendChild(createHiddenInput("taskId", task.id));
+        }
 
         form.appendChild(createTitleAndDateSection(task));
         form.appendChild(createPrioritySection(task));
