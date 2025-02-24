@@ -43,7 +43,7 @@ function createProject(title, setId=null) {
     let getCompletionPercentage = function() {
         let totalTasks = taskList.length;
         if (totalTasks === 0) {
-            return "N/A";
+            return "0%";
         }
         let completedTasks = 0;
 
