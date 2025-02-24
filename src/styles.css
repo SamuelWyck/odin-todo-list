@@ -216,7 +216,7 @@ footer {
 }
 
 .low-priority {
-    background-color: #fdff94;
+    background-color: #efff94;
     /* border: 2px solid #60ffff; */
 }
 
@@ -225,9 +225,9 @@ footer {
 }
 
 .high-priority {
-    background-color: rgb(219, 5, 219);
+    background-color: #db05db;
 }
 
 .completed {
-    background-color: #55ff55;
+    background-color: #55ffa1;
 }
