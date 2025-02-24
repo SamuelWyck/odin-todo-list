@@ -41,7 +41,7 @@ const app = (function() {
     const DOMManager = createDOMManager();
 
     DOMManager.DOMLoadedEvent(loadedEvent);
-    DOMManager.taskClickEvent(function() {}, toggleTaskDone)
+    DOMManager.taskClickEvent(editTaskEvent, toggleTaskDone, removeTaskEvent, addTaskEvent)
 
 
     function loadedEvent() {
@@ -73,6 +73,22 @@ const app = (function() {
 
         const newPercentage = project.getCompletionPercentage();
         DOMManager.updateProjectPercentage(newPercentage);
+    };
+
+    function editTaskEvent(event, projectId) {
+        const taskId = getTaskId(event);
+        const project = todoList.getProject(projectId);
+        const task = project.getTask(taskId);
+        return task;
+    };
+
+    function removeTaskEvent(projectId, taskId) {
+        const project = todoList.getProject(projectId);
+        project.removeTask(taskId);
+    };
+
+    function addTaskEvent() {
+        
     };
 
 
