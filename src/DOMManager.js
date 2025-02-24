@@ -33,6 +33,7 @@ function createDOMManager() {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.textContent = "Done:";
+
         if (completed) {
             btn.classList.add(btnDoneClass);
         } else {
@@ -93,6 +94,40 @@ function createDOMManager() {
         populateTaskSection(project.taskList);
     };
 
+    let getCurrentProjectId = function() {
+        return projectCard.dataset.id;
+    }
+
+    let getTaskDiv = function(id) {
+        for (let div of projectTasksDiv.children) {
+            if (div.dataset.taskid === id) {
+                return div;
+            }
+        }
+    };
+
+    let updateTask = function(task) {
+        let taskDiv = getTaskDiv(String(task.id));
+        
+        for (let child of taskDiv.children) {
+            if (child.classList.contains("task-title")) {
+                child.textContent = task.title;
+            } else if (child.classList.contains("task-duedate")) {
+                child.textContent = task.getDueDate();
+            } else if (child.matches("button")) {
+                if (task.completed) {
+                    child.classList.add("done");
+                } else {
+                    child.classList.remove("done");
+                }
+            }
+        }
+    };
+
+    let updateProjectPercentage = function(percentage) {
+        projectPercentSpan.textContent = percentage;
+    };
+
     let DOMLoadedEvent = function(callback) {
         document.addEventListener("DOMContentLoaded", function() {
             callback();
@@ -110,7 +145,8 @@ function createDOMManager() {
             if (event.target.matches(".task-card") || event.target.matches("p")) {
                 console.log("edit")
             } else if (event.target.matches("button")) {
-                console.log("done")
+                const projectId = getCurrentProjectId();
+                doneBtnCallback(event, projectId);
             }
         });
     }
@@ -120,6 +156,8 @@ function createDOMManager() {
         "DOMLoadedEvent": DOMLoadedEvent,
         "unloadedEvent": unloadedEvent,
         "taskClickEvent": taskClickEvent,
+        "updateTask": updateTask,
+        "updateProjectPercentage": updateProjectPercentage,
     };
 };
 
