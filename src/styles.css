@@ -161,8 +161,8 @@ footer {
 .task-card {
     display: flex;
     padding: 1rem;
-    border-left: 1px solid lightgray;
-    border-right: 1px solid lightgray;
+    /* border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray; */
     justify-content: space-evenly;
     align-items: center;
     font-weight: bold;
@@ -213,4 +213,13 @@ footer {
 
 .task-card:hover {
   font-size: 1.5rem;
+}
+
+.low-priority {
+    background-color: #fdff94;
+    /* border: 2px solid #60ffff; */
+}
+
+.med-priority {
+    background-color: #f08358;
 }
