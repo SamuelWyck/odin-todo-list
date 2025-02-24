@@ -4,7 +4,7 @@ import createProject from "./project.js";
 const todoList = (function() {
     const defaultProjectId = 0;
     let projectList = [];
-    projectList.push(createProject("General Tasks", setId=defaultProjectId));
+    projectList.push(createProject("General Tasks", defaultProjectId));
 
 
     let addProject = function(title) {
