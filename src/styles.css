@@ -194,7 +194,7 @@ footer {
 
 .task-card button:hover {
     color: #cf0404;
-    background-color: lightgray;
+    background-color: white;
 }
 
 .not-done::after {
@@ -222,4 +222,8 @@ footer {
 
 .med-priority {
     background-color: #f08358;
+}
+
+.high-priority {
+    background-color: rgb(219, 5, 219);
 }
