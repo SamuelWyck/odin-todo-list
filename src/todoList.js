@@ -53,8 +53,9 @@ const todoList = (function() {
     };
 
     let getProject = function(id) {
+        const projectId = Number(id);
         for (let project of projectList) {
-            if (project.id === id) {
+            if (project.id === projectId) {
                 return project;
             }
         }
