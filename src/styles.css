@@ -197,10 +197,18 @@ footer {
     background-color: lightgray;
 }
 
-.done::after {
-    content: "✔";
+.not-done::after {
+    content: "☐";
     position: relative;
-    top: 2px;
+    top: 1px;
+    left: 1px;
+}
+
+.done::after {
+    content: "☑";
+    position: relative;
+    top: 1px;
+    left: 1px;
 }
 
 .task-card:hover {
