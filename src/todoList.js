@@ -58,12 +58,17 @@ const todoList = (function() {
         return projectList;
     };
 
+    let setProjectList = function(list) {
+        projectList = list;
+    };
+
     return {
         "addProject": addProject,
         "removeProject": removeProject,
         "editProjectTitle": editProjectTitle,
         "getProject": getProject,
         "getProjectList": getProjectList,
+        "setProjectList": setProjectList,
     };
 })();
 
