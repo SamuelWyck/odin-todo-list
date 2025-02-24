@@ -9,8 +9,8 @@ function createProject(title, setId=null) {
     let taskList = [];
 
 
-    let addTask = function(title, description, dueYear, dueMonth, dueDay, priority) {
-        const task = new Task(title, description, Number(dueYear), Number(dueMonth), Number(dueDay), priority);
+    let addTask = function(title, description, dueYear, dueMonth, dueDay, priority, id=null) {
+        const task = new Task(title, description, Number(dueYear), Number(dueMonth), Number(dueDay), priority, id);
         taskList.push(task);
         return task;
     };
