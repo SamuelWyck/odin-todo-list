@@ -12,6 +12,7 @@ function createDOMManager() {
     const taskDateClass = "task-duedate";
     const btnDoneClass = "done";
     const btnNotDoneClass = "not-done";
+    const taskCompletedClass = "completed";
 
 
     let clearProjectCard = function() {
@@ -66,6 +67,9 @@ function createDOMManager() {
     let createTaskCard = function(task) {
         const taskDiv = document.createElement("div");
         taskDiv.classList.add(taskCardClass);
+        if (task.completed) {
+            taskDiv.classList.add(taskCompletedClass);
+        }
         addPriorityClass(taskDiv, task.priority);
         taskDiv.dataset.taskid = task.id;
 
@@ -106,8 +110,25 @@ function createDOMManager() {
         }
     };
 
+    let updateTaskDivPriority = function(taskDiv, priority) {
+        taskDiv.classList.remove("low-priority");
+        taskDiv.classList.remove("med-priority");
+        taskDiv.classList.remove("high-priority");
+        addPriorityClass(taskDiv, priority);
+    };
+
+    let updateTaskDivCompleted = function(div, completed) {
+        if (completed) {
+            div.classList.add(taskCompletedClass);
+        } else {
+            div.classList.remove(taskCompletedClass);
+        }
+    };
+
     let updateTask = function(task) {
         let taskDiv = getTaskDiv(String(task.id));
+        updateTaskDivPriority(taskDiv, task.priority);
+        updateTaskDivCompleted(taskDiv, task.completed);
         
         for (let child of taskDiv.children) {
             if (child.classList.contains("task-title")) {
