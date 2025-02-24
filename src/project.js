@@ -15,9 +15,10 @@ function createProject(title, setId=null) {
         return task;
     };
 
-    let removeTask = function(id) {
+    let removeTask = function(taskId) {
         let newTaskList = [];
         let removedTask = null;
+        const id = Number(taskId);
 
         for (let task of taskList) {
             if (task.id !== id) {
