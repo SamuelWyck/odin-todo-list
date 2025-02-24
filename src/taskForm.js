@@ -157,6 +157,8 @@ const taskFormFactory = (function() {
         form.appendChild(createPrioritySection(task));
         form.appendChild(createTextAreaSection(task));
         form.appendChild(createBtnSection(edit));
+
+        return form;
     };
     
     let createTaskFormPopup = function(edit=false, task=null) {
@@ -169,6 +171,8 @@ const taskFormFactory = (function() {
         popup.appendChild(createFormElement(edit, task));
 
         body.appendChild(popup);
+
+        return popup;
     };
 
     return {
