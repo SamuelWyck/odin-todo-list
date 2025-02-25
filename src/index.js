@@ -43,6 +43,7 @@ const app = (function() {
     DOMManager.DOMLoadedEvent(loadedEvent);
     DOMManager.taskDoneBtnClickEvent(toggleTaskDone);
     DOMManager.taskCardClickEvent(taskDetailsEvent);
+    DOMManager.popupEventListeners();
 
 
     function loadedEvent() {
