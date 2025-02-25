@@ -50,6 +50,9 @@ const app = (function() {
         loadData();
         const project = todoList.getProject(todoList.getDefaultProjectId());
         DOMManager.displayProject(project);
+
+        const projectList = todoList.getProjectList();
+        DOMManager.displayProjectList(projectList, todoList.getDefaultProjectId());
     };
     
     function loadData() {
