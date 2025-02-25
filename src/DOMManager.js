@@ -190,7 +190,7 @@ function createDOMManager() {
     };
 
     let clearTaskForm = function() {
-        hiddenInput.value = 0;
+        hiddenInput.value = -1;
         titleInput.value = "";
         dateInput.valueAsDate = "";
         prioritySelect.value = "";
