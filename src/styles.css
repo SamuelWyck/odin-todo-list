@@ -231,3 +231,7 @@ footer {
 .completed {
     background-color: #55ffa1;
 }
+
+.hidden {
+    display: none;
+}
