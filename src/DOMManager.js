@@ -236,6 +236,39 @@ function createDOMManager() {
         updateProjectPercentage(newProjectPercent);
     };
 
+    let parseFormData = function(formData) {
+        const taskInfo = {};
+        taskInfo["title"] = formData.get("title");
+        taskInfo["priority"] = Number(formData.get("priority"));
+        taskInfo["description"] = formData.get("description");
+        taskInfo["date"] = formData.get("date");
+        return taskInfo;
+    };
+
+    let handleTaskEdit = function(formData, editTaskCallback) {
+        const taskInfo = parseFormData(formData);
+        const taskId = formData.get("id");
+        const projectId = getCurrentProjectId();
+        const editedTask = editTaskCallback(projectId, taskId, taskInfo);
+        updateTask(editedTask);
+    };
+
+    let getFormData = function(form) {
+        const formData = new FormData(form);
+        const newTask = formData.get("id") === "-1";
+        return [formData, newTask];
+    };
+
+    let handleTaskFormSubmit = function(form, editTaskCallback) {
+        const [formData, newTask] = getFormData(form);
+        
+        if (newTask) {
+
+        } else {
+            handleTaskEdit(formData, editTaskCallback);
+        }
+    };
+
     let taskDoneBtnClickEvent = function(doneBtnCallback) {
         projectTasksDiv.addEventListener("click", function(event) {
             if (event.target.matches("button") && !popupShowing) {
@@ -266,6 +299,14 @@ function createDOMManager() {
         }) 
     };
 
+    let popupSubmitEventListener = function(editTaskCallback) {
+        popup.addEventListener("submit", function(event) {
+            event.preventDefault();
+            handleTaskFormSubmit(event.target, editTaskCallback);
+            hideTaskFormPopup();
+        });
+    };
+
 
     return {
         "displayProject": displayProject,
@@ -276,6 +317,7 @@ function createDOMManager() {
         "updateProjectPercentage": updateProjectPercentage,
         "taskCardClickEvent": taskCardClickEvent,
         "popupClickEventListeners": popupClickEventListeners,
+        "popupSubmitEventListener": popupSubmitEventListener,
     };
 };
 
