@@ -41,8 +41,7 @@ const app = (function() {
     const DOMManager = createDOMManager();
 
     DOMManager.DOMLoadedEvent(loadedEvent);
-    DOMManager.taskDoneBtnClickEvent(toggleTaskDone);
-    DOMManager.taskCardClickEvent(taskDetailsEvent);
+    DOMManager.taskClickEvent(toggleTaskDone, taskDetailsEvent);
     DOMManager.popupClickEventListeners(removeTaskEvent);
     DOMManager.popupSubmitEventListener(editTaskEvent, newTaskEvent);
 
