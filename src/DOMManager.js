@@ -279,23 +279,12 @@ function createDOMManager() {
         }
     };
 
-    let taskDoneBtnClickEvent = function(doneBtnCallback) {
+    let taskClickEvent = function(doneBtnCallback, getTaskCallback) {
         projectTasksDiv.addEventListener("click", function(event) {
             if (event.target.matches("button") && !popupShowing) {
                 const projectId = getCurrentProjectId();
                 doneBtnCallback(event, projectId);
-            }
-        });
-
-        popup.addEventListener("submit", function(event) {
-            event.preventDefault();
-            console.log(event.target)
-        })
-    }
-
-    let taskCardClickEvent = function(getTaskCallback) {
-        projectTasksDiv.addEventListener("click", function(event) {
-            if (event.target.matches(".task-card") || event.target.matches("p")) {
+            } else if (event.target.matches(".task-card") || event.target.matches("p")) {
                 if (!popupShowing) {
                     showTaskFormPopup(event, getTaskCallback, true);
                 }
@@ -333,10 +322,9 @@ function createDOMManager() {
         "displayProject": displayProject,
         "DOMLoadedEvent": DOMLoadedEvent,
         "unloadedEvent": unloadedEvent,
-        "taskDoneBtnClickEvent": taskDoneBtnClickEvent,
         "updateTask": updateTask,
         "updateProjectPercentage": updateProjectPercentage,
-        "taskCardClickEvent": taskCardClickEvent,
+        "taskClickEvent": taskClickEvent,
         "popupClickEventListeners": popupClickEventListeners,
         "popupSubmitEventListener": popupSubmitEventListener,
     };
