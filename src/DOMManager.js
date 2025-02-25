@@ -223,31 +223,10 @@ function createDOMManager() {
         popupShowing = true;
     };
 
-    // let createPopupListeners = function(popup, deleteTaskCallback, addTaskCallback) {
-    //     popup.addEventListener("click", function(event) {
-    //         if (event.target.matches(".exit-btn")) {
-    //             popup.remove();
-    //             popupShowing = false;
-    //         } else if (event.target.matches(".del-btn")) {
-    //             const taskId = popup.children[1].children[0].value;
-    //             const projectId = getCurrentProjectId();
-    //             const newPercentage = deleteTaskCallback(projectId, taskId);
-    //             removeTaskFromDisplay(taskId);
-    //             console.log(newPercentage)
-    //             updateProjectPercentage(newPercentage);
-    //             popup.remove();
-    //             popupShowing = false;
-    //         }
-    //     });
-    // }
-
-    // let taskEdit = function(event, getTaskCallback, deleteTaskCallback, addTaskCallback) {
-    //     popupShowing = true;
-    //     const projectId = getCurrentProjectId();
-    //     const task = getTaskCallback(event, projectId);
-    //     const popup = formFactory.createTaskFormPopup(true, task);
-    //     createPopupListeners(popup, deleteTaskCallback, addTaskCallback);
-    // };
+    let hideTaskFormPopup = function() {
+        popup.classList.add("hidden");
+        popupShowing = false;
+    }
 
     let taskDoneBtnClickEvent = function(doneBtnCallback) {
         projectTasksDiv.addEventListener("click", function(event) {
@@ -268,6 +247,14 @@ function createDOMManager() {
         });
     };
 
+    let popupEventListeners = function() {
+        popup.addEventListener("click", function(event) {
+            if (event.target.matches(".exit-btn")) {
+                hideTaskFormPopup();
+            }
+        }) 
+    };
+
 
     return {
         "displayProject": displayProject,
@@ -277,6 +264,7 @@ function createDOMManager() {
         "updateTask": updateTask,
         "updateProjectPercentage": updateProjectPercentage,
         "taskCardClickEvent": taskCardClickEvent,
+        "popupEventListeners": popupEventListeners,
     };
 };
 
