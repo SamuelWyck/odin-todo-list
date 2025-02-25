@@ -235,3 +235,88 @@ footer {
 .hidden {
     display: none;
 }
+
+.popup {
+    position: absolute;
+    width: fit-content;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 20%;
+    background-color: lightgray;
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    border: 4px solid #cf0404;
+}
+
+.exit-btn-div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.popup label {
+    display: block;
+    color: #cf0404;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.title-date-section {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.popup input, .popup select, .popup textarea {
+    outline: none;
+    height: 2.5rem;
+    font-size: 1.3rem;
+    font-family: "roboto", sans-serif;
+    padding: 0 .5rem;
+    border: 2px solid #cf0404;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    background-color: white;
+}
+
+.popup textarea {
+    outline: none;
+    width: 100%;
+    height: 9.5ch;
+    resize: none;
+    padding: .5rem;
+}
+
+.del-save-btn-div {
+    display: flex;
+}
+
+.two-btn {
+    justify-content: space-between;
+}
+
+.one-btn {
+    justify-content: flex-end;
+}
+
+.popup button {
+    cursor: pointer;
+    font-size: 1.3rem;
+    border: .2rem solid #cf0404;
+    background-color: #cf0404;
+    color: white;
+    font-weight: bold;
+    padding: .4rem;
+    border-radius: 10px;
+}
+
+.exit-btn-div button {
+    padding: .4rem .7rem;
+    font-weight: bolder;
+}
+
+.popup button:hover {
+    background-color: white;
+    color: #cf0404;
+}
