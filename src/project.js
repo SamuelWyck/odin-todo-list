@@ -48,7 +48,7 @@ function createProject(title, setId=null) {
         }
 
         task.title = newInfo["title"];
-        task.dueDate = new Date(newInfo["date"]);
+        task.setDate(new Date(newInfo["date"]));
         task.description = newInfo["description"];
         task.priority = newInfo["priority"];
         return task;
