@@ -7,6 +7,9 @@ function createDOMManager() {
     const projectPercentSpan = document.querySelector(".project-percentage");
     const projectTasksDiv = document.querySelector(".project-tasks");
 
+    const projectListDiv = document.querySelector(".project-list");
+    const addProjectBtn = document.querySelector(".add-project-btn");
+
     const popup = document.querySelector(".popup");
     const hiddenInput = document.querySelector("input[name='id']");
     const titleInput = document.querySelector("#title");
@@ -279,6 +282,21 @@ function createDOMManager() {
         }
     };
 
+    let createProjectSelection = function(project, defaultProjectId) {
+        const para = createPara(project.title);
+        para.dataset.projectid = project.id;
+        if (project.id === defaultProjectId) {
+            para.classList.add("project-selected");
+        }
+        projectListDiv.appendChild(para);
+    };
+
+    let displayProjectList = function(projectList, defaultProjectId) {
+        for (let project of projectList) {
+            createProjectSelection(project, defaultProjectId);
+        }
+    };
+
     let taskClickEvent = function(doneBtnCallback, getTaskCallback) {
         projectTasksDiv.addEventListener("click", function(event) {
             if (event.target.matches("button") && !popupShowing) {
@@ -320,6 +338,7 @@ function createDOMManager() {
 
     return {
         "displayProject": displayProject,
+        "displayProjectList": displayProjectList,
         "DOMLoadedEvent": DOMLoadedEvent,
         "unloadedEvent": unloadedEvent,
         "updateTask": updateTask,
