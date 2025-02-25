@@ -255,7 +255,7 @@ function createDOMManager() {
         });
     };
 
-    let popupEventListeners = function(deleteTaskCallback) {
+    let popupClickEventListeners = function(deleteTaskCallback) {
         popup.addEventListener("click", function(event) {
             if (event.target.matches(".exit-btn")) {
                 hideTaskFormPopup();
@@ -275,7 +275,7 @@ function createDOMManager() {
         "updateTask": updateTask,
         "updateProjectPercentage": updateProjectPercentage,
         "taskCardClickEvent": taskCardClickEvent,
-        "popupEventListeners": popupEventListeners,
+        "popupClickEventListeners": popupClickEventListeners,
     };
 };
 
