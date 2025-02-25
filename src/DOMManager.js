@@ -331,7 +331,9 @@ function createDOMManager() {
 
     projectCard.addEventListener("click", function(event) {
         if (event.target.matches(".add-task-btn")) {
-            showTaskFormPopup(null, null, false);
+            if (!popupShowing) {
+                showTaskFormPopup(null, null, false);
+            }
         }
     });
 
