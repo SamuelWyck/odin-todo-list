@@ -44,7 +44,7 @@ const app = (function() {
     DOMManager.taskDoneBtnClickEvent(toggleTaskDone);
     DOMManager.taskCardClickEvent(taskDetailsEvent);
     DOMManager.popupClickEventListeners(removeTaskEvent);
-    DOMManager.popupSubmitEventListener(editTaskEvent);
+    DOMManager.popupSubmitEventListener(editTaskEvent, newTaskEvent);
 
 
     function loadedEvent() {
@@ -96,6 +96,22 @@ const app = (function() {
         const project = todoList.getProject(projectId);
         const task = project.editTask(taskId, taskInfo);
         return task;
+    };
+
+    function newTaskEvent(projectId, taskInfo) {
+        const project = todoList.getProject(projectId);
+        const task = project.addTask(
+            taskInfo["title"], 
+            taskInfo["description"], 
+            1970, 0, 1, 
+            taskInfo["priority"]
+        );
+        const date = new Date(taskInfo["date"]);
+        task.setDate(date);
+
+        const newPercent = project.getCompletionPercentage();
+        
+        return [task, newPercent];
     };
 
 
