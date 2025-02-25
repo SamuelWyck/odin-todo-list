@@ -320,3 +320,57 @@ footer {
     background-color: white;
     color: #cf0404;
 }
+
+.project-selection {
+    margin: 3vw;
+}
+
+.project-selection-title {
+    margin: .2rem 0;
+    font-size: 2rem;
+    color: #cf0404;
+    font-weight: bold;
+}
+
+.project-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.project-list p {
+    font-size: 1.3rem;
+    padding: 1rem;
+    margin-left: 2px;
+    border-left: 3px solid lightgray;
+    cursor: pointer;
+    max-width: 20ch;
+    width: fit-content;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.project-list p.project-selected {
+    background-color: #ff7373;
+    border-left-color: #cf0404;
+}
+
+.project-list p:not(.project-selected):hover {
+    color: #cf0404;
+}
+
+.add-project-btn {
+    border: none;
+    background-color: white;
+    font-size: 1.5rem;
+    /* margin-top: .3rem; */
+    color: #cf0404;
+    font-weight: bold;
+    margin-left: .2rem;
+    cursor: pointer;
+    padding: .5rem 0;
+}
+
+.add-project-btn:hover {
+    text-decoration: underline;
+}
