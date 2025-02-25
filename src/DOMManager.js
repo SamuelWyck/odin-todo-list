@@ -1,4 +1,4 @@
-import taskFormFactory from "./taskForm.js";
+// import taskFormFactory from "./taskForm.js";
 
 
 function createDOMManager() {
@@ -15,7 +15,6 @@ function createDOMManager() {
     const btnNotDoneClass = "not-done";
     const taskCompletedClass = "completed";
 
-    const formFactory = taskFormFactory;
     let popupShowing = false;
 
 
@@ -174,43 +173,37 @@ function createDOMManager() {
         }
     }
 
-    let createPopupListeners = function(popup, deleteTaskCallback, addTaskCallback) {
-        popup.addEventListener("click", function(event) {
-            if (event.target.matches(".exit-btn")) {
-                popup.remove();
-                popupShowing = false;
-            } else if (event.target.matches(".del-btn")) {
-                const taskId = popup.children[1].children[0].value;
-                const projectId = getCurrentProjectId();
-                const newPercentage = deleteTaskCallback(projectId, taskId);
-                removeTaskFromDisplay(taskId);
-                console.log(newPercentage)
-                updateProjectPercentage(newPercentage);
-                popup.remove();
-                popupShowing = false;
-            }
-        });
-    }
+    // let createPopupListeners = function(popup, deleteTaskCallback, addTaskCallback) {
+    //     popup.addEventListener("click", function(event) {
+    //         if (event.target.matches(".exit-btn")) {
+    //             popup.remove();
+    //             popupShowing = false;
+    //         } else if (event.target.matches(".del-btn")) {
+    //             const taskId = popup.children[1].children[0].value;
+    //             const projectId = getCurrentProjectId();
+    //             const newPercentage = deleteTaskCallback(projectId, taskId);
+    //             removeTaskFromDisplay(taskId);
+    //             console.log(newPercentage)
+    //             updateProjectPercentage(newPercentage);
+    //             popup.remove();
+    //             popupShowing = false;
+    //         }
+    //     });
+    // }
 
-    let taskEdit = function(event, getTaskCallback, deleteTaskCallback, addTaskCallback) {
-        popupShowing = true;
-        const projectId = getCurrentProjectId();
-        const task = getTaskCallback(event, projectId);
-        const popup = formFactory.createTaskFormPopup(true, task);
-        createPopupListeners(popup, deleteTaskCallback, addTaskCallback);
-    };
+    // let taskEdit = function(event, getTaskCallback, deleteTaskCallback, addTaskCallback) {
+    //     popupShowing = true;
+    //     const projectId = getCurrentProjectId();
+    //     const task = getTaskCallback(event, projectId);
+    //     const popup = formFactory.createTaskFormPopup(true, task);
+    //     createPopupListeners(popup, deleteTaskCallback, addTaskCallback);
+    // };
 
-    let taskClickEvent = function(editCallback, doneBtnCallback, deleteTaskCallback, addTaskCallback) {
+    let taskDoneBtnClickEvent = function(doneBtnCallback) {
         projectTasksDiv.addEventListener("click", function(event) {
-            if (event.target.matches(".task-card") || event.target.matches("p")) {
-                if (!popupShowing) {
-                    taskEdit(event, editCallback, deleteTaskCallback, addTaskCallback);
-                }
-            } else if (event.target.matches("button")) {
-                if (!popupShowing) {
-                    const projectId = getCurrentProjectId();
-                    doneBtnCallback(event, projectId);
-                }
+            if (event.target.matches("button") && !popupShowing) {
+                const projectId = getCurrentProjectId();
+                doneBtnCallback(event, projectId);
             }
         });
     }
@@ -219,7 +212,7 @@ function createDOMManager() {
         "displayProject": displayProject,
         "DOMLoadedEvent": DOMLoadedEvent,
         "unloadedEvent": unloadedEvent,
-        "taskClickEvent": taskClickEvent,
+        "taskDoneBtnClickEvent": taskDoneBtnClickEvent,
         "updateTask": updateTask,
         "updateProjectPercentage": updateProjectPercentage,
     };
