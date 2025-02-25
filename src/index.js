@@ -41,7 +41,10 @@ const app = (function() {
     const DOMManager = createDOMManager();
 
     DOMManager.DOMLoadedEvent(loadedEvent);
-    DOMManager.taskClickEvent(editTaskEvent, toggleTaskDone, removeTaskEvent, addTaskEvent)
+    DOMManager.taskDoneBtnClickEvent(toggleTaskDone);
+    DOMManager.taskCardClickEvent(taskDetailsEvent);
+    DOMManager.popupClickEventListeners(removeTaskEvent);
+    DOMManager.popupSubmitEventListener(editTaskEvent, newTaskEvent);
 
 
     function loadedEvent() {
@@ -75,7 +78,7 @@ const app = (function() {
         DOMManager.updateProjectPercentage(newPercentage);
     };
 
-    function editTaskEvent(event, projectId) {
+    function taskDetailsEvent(event, projectId) {
         const taskId = getTaskId(event);
         const project = todoList.getProject(projectId);
         const task = project.getTask(taskId);
@@ -89,8 +92,26 @@ const app = (function() {
         return newPercentage;
     };
 
-    function addTaskEvent() {
+    function editTaskEvent(projectId, taskId, taskInfo) {
+        const project = todoList.getProject(projectId);
+        const task = project.editTask(taskId, taskInfo);
+        return task;
+    };
+
+    function newTaskEvent(projectId, taskInfo) {
+        const project = todoList.getProject(projectId);
+        const task = project.addTask(
+            taskInfo["title"], 
+            taskInfo["description"], 
+            1970, 0, 1, 
+            taskInfo["priority"]
+        );
+        const date = new Date(taskInfo["date"]);
+        task.setDate(date);
+
+        const newPercent = project.getCompletionPercentage();
         
+        return [task, newPercent];
     };
 
 

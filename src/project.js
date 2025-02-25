@@ -44,14 +44,14 @@ function createProject(title, setId=null) {
     let editTask = function(taskId, newInfo) {
         const task = getTask(taskId);
         if (task === null) {
-            return false;
+            return null;
         }
 
         task.title = newInfo["title"];
-        task.dueDate = new Date(newInfo["date"]);
+        task.setDate(new Date(newInfo["date"]));
         task.description = newInfo["description"];
         task.priority = newInfo["priority"];
-        return true;
+        return task;
     };
 
     let getCompletionPercentage = function() {

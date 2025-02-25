@@ -13,6 +13,10 @@ function Task(title, description, dueYear, dueMonth, dueDay, priority, id=null) 
 };
 
 
+Task.prototype.setDate = function(date) {
+    this.dueDate = new Date(date.getTime() + Math.abs(date.getTimezoneOffset()*60000));
+};
+
 Task.prototype.toggleCompleted = function() {
     this.completed = !this.completed;
 };

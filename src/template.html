@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="project-footer">
-                        <button type="button">Add Task</button>
+                        <button class="add-task-btn" type="button">Add Task</button>
                     </div>
                 </div>
             </div>
@@ -43,20 +43,20 @@
                 <p>&copy; YouDo Inc.</p>
             </footer>
         </div>
-        <!-- <div style="position: absolute; top: 50%; background-color: white;">
-            <div>
-                <button type="button" class="close-btn">X</button>
+        <div class="popup hidden">
+            <div class="exit-btn-div">
+                <button type="button" class="exit-btn">X</button>
             </div>
             <form action="#">
-                <input type="hidden" value="2" name="id">
+                <input type="hidden" value="-1" name="id">
                 <div>
                     <div>
                         <label for="title">Title</label>
-                        <input type="text" id="title" name="title">
+                        <input type="text" id="title" name="title" required>
                     </div>
                     <div>
                         <label for="date">Date</label>
-                        <input type="date" id="date" name="date">
+                        <input type="date" id="date" name="date" required>
                     </div>
                 </div>
                 <div>
@@ -72,11 +72,11 @@
                     <label for="description">Description</label>
                     <textarea name="description" id="description"></textarea>
                 </div>
-                <div>
-                    <button type="submit" class="del-btn">Delete</button>
+                <div class="del-save-btn-div">
+                    <button type="button" class="del-btn">Delete</button>
                     <button type="submit" class="save-btn">Save</button>
                 </div>
             </form>
-        </div> -->
+        </div>
     </body>
 </html>

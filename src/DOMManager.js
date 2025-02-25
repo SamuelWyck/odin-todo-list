@@ -1,4 +1,3 @@
-import taskFormFactory from "./taskForm.js";
 
 
 function createDOMManager() {
@@ -8,6 +7,15 @@ function createDOMManager() {
     const projectPercentSpan = document.querySelector(".project-percentage");
     const projectTasksDiv = document.querySelector(".project-tasks");
 
+    const popup = document.querySelector(".popup");
+    const hiddenInput = document.querySelector("input[name='id']");
+    const titleInput = document.querySelector("#title");
+    const dateInput = document.querySelector("#date");
+    const prioritySelect = document.querySelector("#priority");
+    const descriptionTextArea = document.querySelector("#description");
+    const deleteBtn = document.querySelector(".del-btn");
+    const popupDelSaveBtnDiv = document.querySelector(".del-save-btn-div");
+
     const taskCardClass = "task-card";
     const taskTitleClass = "task-title";
     const taskDateClass = "task-duedate";
@@ -15,7 +23,6 @@ function createDOMManager() {
     const btnNotDoneClass = "not-done";
     const taskCompletedClass = "completed";
 
-    const formFactory = taskFormFactory;
     let popupShowing = false;
 
 
@@ -104,7 +111,7 @@ function createDOMManager() {
 
     let getCurrentProjectId = function() {
         return projectCard.dataset.id;
-    }
+    };
 
     let getTaskDiv = function(id) {
         for (let div of projectTasksDiv.children) {
@@ -172,22 +179,111 @@ function createDOMManager() {
                 break;
             }
         }
-    }
+    };
 
-    let createPopupListeners = function(popup, deleteTaskCallback, addTaskCallback) {
-        popup.addEventListener("click", function(event) {
-            if (event.target.matches(".exit-btn")) {
-                popup.remove();
-                popupShowing = false;
-            } else if (event.target.matches(".del-btn")) {
-                const taskId = popup.children[1].children[0].value;
+    let populateTaskForm = function(task) {
+        hiddenInput.value = task.id;
+        titleInput.value = task.title;
+        dateInput.valueAsDate = task.dueDate;
+        prioritySelect.value = task.priority;
+        descriptionTextArea.value = task.description;
+    };
+
+    let clearTaskForm = function() {
+        hiddenInput.value = -1;
+        titleInput.value = "";
+        dateInput.value = "";
+        prioritySelect.value = "0";
+        descriptionTextArea.value = "";
+    };
+
+    let showDeleteBtn = function(show=false) {
+        if (show) {
+            deleteBtn.classList.remove("hidden");
+            popupDelSaveBtnDiv.classList.remove("one-btn");
+            popupDelSaveBtnDiv.classList.add("two-btn");
+        } else {
+            deleteBtn.classList.add("hidden");
+            popupDelSaveBtnDiv.classList.add("one-btn");
+            popupDelSaveBtnDiv.classList.remove("two-btn");
+        }
+    };
+
+    let showTaskFormPopup = function(event, getTaskCallback, edit=false) {
+        if (edit) {
+            const projectId = getCurrentProjectId();
+            const task = getTaskCallback(event, projectId);
+            populateTaskForm(task);
+            showDeleteBtn(true);
+        } else {
+            clearTaskForm();
+            showDeleteBtn(false);
+        }
+        popup.classList.remove("hidden");
+        popupShowing = true;
+    };
+
+    let hideTaskFormPopup = function() {
+        popup.classList.add("hidden");
+        popupShowing = false;
+    };
+
+    let deleteTask = function(deleteTaskCallback) {
+        const projectId = getCurrentProjectId();
+        const taskId = hiddenInput.value;
+        const newProjectPercent = deleteTaskCallback(projectId, taskId);
+        removeTaskFromDisplay(taskId);
+        updateProjectPercentage(newProjectPercent);
+    };
+
+    let parseFormData = function(formData) {
+        const taskInfo = {};
+        taskInfo["title"] = formData.get("title");
+        taskInfo["priority"] = Number(formData.get("priority"));
+        taskInfo["description"] = formData.get("description");
+        taskInfo["date"] = formData.get("date");
+        return taskInfo;
+    };
+
+    let handleTaskEdit = function(formData, editTaskCallback) {
+        const taskInfo = parseFormData(formData);
+        const taskId = formData.get("id");
+        const projectId = getCurrentProjectId();
+        const editedTask = editTaskCallback(projectId, taskId, taskInfo);
+        updateTask(editedTask);
+    };
+
+    let getFormData = function(form) {
+        const formData = new FormData(form);
+        const newTask = formData.get("id") === "-1";
+        return [formData, newTask];
+    };
+
+    let handleNewTask = function(formData, newTaskCallback) {
+        const taskInfo = parseFormData(formData);
+        const projectId = getCurrentProjectId();
+        const [task, newPercent] = newTaskCallback(projectId, taskInfo);
+
+        const taskCard = createTaskCard(task);
+        projectTasksDiv.appendChild(taskCard);
+        updateProjectPercentage(newPercent);
+    };
+
+    let handleTaskFormSubmit = function(form, editTaskCallback, newTaskCallback) {
+        const [formData, newTask] = getFormData(form);
+        
+        if (newTask) {
+            handleNewTask(formData, newTaskCallback);
+        } else {
+            handleTaskEdit(formData, editTaskCallback);
+        }
+    };
+
+    let taskDoneBtnClickEvent = function(doneBtnCallback) {
+        projectTasksDiv.addEventListener("click", function(event) {
+            if (event.target.matches("button") && !popupShowing) {
                 const projectId = getCurrentProjectId();
-                const newPercentage = deleteTaskCallback(projectId, taskId);
-                removeTaskFromDisplay(taskId);
-                console.log(newPercentage)
-                updateProjectPercentage(newPercentage);
-                popup.remove();
-                popupShowing = false;
+                doneBtnCallback(event, projectId);
             }
         });
 
@@ -197,36 +293,52 @@ function createDOMManager() {
         })
     }
 
-    let taskEdit = function(event, getTaskCallback, deleteTaskCallback, addTaskCallback) {
-        popupShowing = true;
-        const projectId = getCurrentProjectId();
-        const task = getTaskCallback(event, projectId);
-        const popup = formFactory.createTaskFormPopup(true, task);
-        createPopupListeners(popup, deleteTaskCallback, addTaskCallback);
-    };
-
-    let taskClickEvent = function(editCallback, doneBtnCallback, deleteTaskCallback, addTaskCallback) {
+    let taskCardClickEvent = function(getTaskCallback) {
         projectTasksDiv.addEventListener("click", function(event) {
             if (event.target.matches(".task-card") || event.target.matches("p")) {
                 if (!popupShowing) {
-                    taskEdit(event, editCallback, deleteTaskCallback, addTaskCallback);
-                }
-            } else if (event.target.matches("button")) {
-                if (!popupShowing) {
-                    const projectId = getCurrentProjectId();
-                    doneBtnCallback(event, projectId);
+                    showTaskFormPopup(event, getTaskCallback, true);
                 }
             }
         });
-    }
+    };
+
+    let popupClickEventListeners = function(deleteTaskCallback) {
+        popup.addEventListener("click", function(event) {
+            if (event.target.matches(".exit-btn")) {
+                hideTaskFormPopup();
+            } else if (event.target.matches(".del-btn")) {
+                deleteTask(deleteTaskCallback);
+                hideTaskFormPopup();
+            }
+        }) 
+    };
+
+    let popupSubmitEventListener = function(editTaskCallback, newTaskCallback) {
+        popup.addEventListener("submit", function(event) {
+            event.preventDefault();
+            handleTaskFormSubmit(event.target, editTaskCallback, newTaskCallback);
+            hideTaskFormPopup();
+        });
+    };
+
+    projectCard.addEventListener("click", function(event) {
+        if (event.target.matches(".add-task-btn")) {
+            showTaskFormPopup(null, null, false);
+        }
+    });
+
 
     return {
         "displayProject": displayProject,
         "DOMLoadedEvent": DOMLoadedEvent,
         "unloadedEvent": unloadedEvent,
-        "taskClickEvent": taskClickEvent,
+        "taskDoneBtnClickEvent": taskDoneBtnClickEvent,
         "updateTask": updateTask,
         "updateProjectPercentage": updateProjectPercentage,
+        "taskCardClickEvent": taskCardClickEvent,
+        "popupClickEventListeners": popupClickEventListeners,
+        "popupSubmitEventListener": popupSubmitEventListener,
     };
 };
 
