@@ -226,7 +226,15 @@ function createDOMManager() {
     let hideTaskFormPopup = function() {
         popup.classList.add("hidden");
         popupShowing = false;
-    }
+    };
+
+    let deleteTask = function(deleteTaskCallback) {
+        const projectId = getCurrentProjectId();
+        const taskId = hiddenInput.value;
+        const newProjectPercent = deleteTaskCallback(projectId, taskId);
+        removeTaskFromDisplay(taskId);
+        updateProjectPercentage(newProjectPercent);
+    };
 
     let taskDoneBtnClickEvent = function(doneBtnCallback) {
         projectTasksDiv.addEventListener("click", function(event) {
@@ -247,9 +255,12 @@ function createDOMManager() {
         });
     };
 
-    let popupEventListeners = function() {
+    let popupEventListeners = function(deleteTaskCallback) {
         popup.addEventListener("click", function(event) {
             if (event.target.matches(".exit-btn")) {
+                hideTaskFormPopup();
+            } else if (event.target.matches(".del-btn")) {
+                deleteTask(deleteTaskCallback);
                 hideTaskFormPopup();
             }
         }) 
