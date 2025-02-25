@@ -41,6 +41,19 @@ function createProject(title, setId=null) {
         return null;
     };
 
+    let editTask = function(taskId, newInfo) {
+        const task = getTask(taskId);
+        if (task === null) {
+            return false;
+        }
+
+        task.title = newInfo["title"];
+        task.dueDate = new Date(newInfo["date"]);
+        task.description = newInfo["description"];
+        task.priority = newInfo["priority"];
+        return true;
+    };
+
     let getCompletionPercentage = function() {
         let totalTasks = taskList.length;
         if (totalTasks === 0) {
@@ -66,6 +79,7 @@ function createProject(title, setId=null) {
         "removeTask": removeTask,
         "getCompletionPercentage": getCompletionPercentage,
         "getTask": getTask,
+        "editTask": editTask,
     };
 }
 
