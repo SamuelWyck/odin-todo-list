@@ -1,4 +1,3 @@
-// import taskFormFactory from "./taskForm.js";
 
 
 function createDOMManager() {
@@ -7,6 +6,15 @@ function createDOMManager() {
     const projectTitleSpan = document.querySelector(".project-title");
     const projectPercentSpan = document.querySelector(".project-percentage");
     const projectTasksDiv = document.querySelector(".project-tasks");
+
+    const popup = document.querySelector(".popup");
+    const hiddenInput = document.querySelector("input[name='id']");
+    const titleInput = document.querySelector("#title");
+    const dateInput = document.querySelector("#date");
+    const prioritySelect = document.querySelector("#priority");
+    const descriptionTextArea = document.querySelector("#description");
+    const deleteBtn = document.querySelector(".del-btn");
+    const popupDelSaveBtnDiv = document.querySelector(".del-save-btn-div");
 
     const taskCardClass = "task-card";
     const taskTitleClass = "task-title";
@@ -173,6 +181,48 @@ function createDOMManager() {
         }
     }
 
+    let populateTaskForm = function(task) {
+        hiddenInput.value = task.id;
+        titleInput.value = task.title;
+        dateInput.valueAsDate = task.dueDate;
+        prioritySelect.value = task.priority;
+        descriptionTextArea.value = task.description;
+    };
+
+    let clearTaskForm = function() {
+        hiddenInput.value = 0;
+        titleInput.value = "";
+        dateInput.valueAsDate = "";
+        prioritySelect.value = "";
+        descriptionTextArea.value = "";
+    };
+
+    let showDeleteBtn = function(show=false) {
+        if (show) {
+            deleteBtn.classList.remove("hidden");
+            popupDelSaveBtnDiv.classList.remove("one-btn");
+            popupDelSaveBtnDiv.classList.add("two-btn");
+        } else {
+            deleteBtn.add("hidden");
+            popupDelSaveBtnDiv.classList.add("one-btn");
+            popupDelSaveBtnDiv.classList.remove("two-btn");
+        }
+    };
+
+    let showTaskFormPopup = function(event, getTaskCallback, edit=false) {
+        if (edit) {
+            const projectId = getCurrentProjectId();
+            const task = getTaskCallback(event, projectId);
+            populateTaskForm(task);
+            showDeleteBtn(true);
+        } else {
+            clearTaskForm();
+            showDeleteBtn(false);
+        }
+        popup.classList.remove("hidden");
+        popupShowing = true;
+    };
+
     // let createPopupListeners = function(popup, deleteTaskCallback, addTaskCallback) {
     //     popup.addEventListener("click", function(event) {
     //         if (event.target.matches(".exit-btn")) {
@@ -208,6 +258,17 @@ function createDOMManager() {
         });
     }
 
+    let taskCardClickEvent = function(getTaskCallback) {
+        projectTasksDiv.addEventListener("click", function(event) {
+            if (event.target.matches(".task-card") || event.target.matches("p")) {
+                if (!popupShowing) {
+                    showTaskFormPopup(event, getTaskCallback, true);
+                }
+            }
+        });
+    };
+
+
     return {
         "displayProject": displayProject,
         "DOMLoadedEvent": DOMLoadedEvent,
@@ -215,6 +276,7 @@ function createDOMManager() {
         "taskDoneBtnClickEvent": taskDoneBtnClickEvent,
         "updateTask": updateTask,
         "updateProjectPercentage": updateProjectPercentage,
+        "taskCardClickEvent": taskCardClickEvent,
     };
 };
 
