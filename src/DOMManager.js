@@ -111,7 +111,7 @@ function createDOMManager() {
 
     let getCurrentProjectId = function() {
         return projectCard.dataset.id;
-    }
+    };
 
     let getTaskDiv = function(id) {
         for (let div of projectTasksDiv.children) {
@@ -179,7 +179,7 @@ function createDOMManager() {
                 break;
             }
         }
-    }
+    };
 
     let populateTaskForm = function(task) {
         hiddenInput.value = task.id;
@@ -192,8 +192,8 @@ function createDOMManager() {
     let clearTaskForm = function() {
         hiddenInput.value = -1;
         titleInput.value = "";
-        dateInput.valueAsDate = "";
-        prioritySelect.value = "";
+        dateInput.value = "";
+        prioritySelect.value = "0";
         descriptionTextArea.value = "";
     };
 
@@ -203,7 +203,7 @@ function createDOMManager() {
             popupDelSaveBtnDiv.classList.remove("one-btn");
             popupDelSaveBtnDiv.classList.add("two-btn");
         } else {
-            deleteBtn.add("hidden");
+            deleteBtn.classList.add("hidden");
             popupDelSaveBtnDiv.classList.add("one-btn");
             popupDelSaveBtnDiv.classList.remove("two-btn");
         }
@@ -259,11 +259,21 @@ function createDOMManager() {
         return [formData, newTask];
     };
 
-    let handleTaskFormSubmit = function(form, editTaskCallback) {
+    let handleNewTask = function(formData, newTaskCallback) {
+        const taskInfo = parseFormData(formData);
+        const projectId = getCurrentProjectId();
+        const [task, newPercent] = newTaskCallback(projectId, taskInfo);
+
+        const taskCard = createTaskCard(task);
+        projectTasksDiv.appendChild(taskCard);
+        updateProjectPercentage(newPercent);
+    };
+
+    let handleTaskFormSubmit = function(form, editTaskCallback, newTaskCallback) {
         const [formData, newTask] = getFormData(form);
         
         if (newTask) {
-
+            handleNewTask(formData, newTaskCallback);
         } else {
             handleTaskEdit(formData, editTaskCallback);
         }
@@ -299,13 +309,19 @@ function createDOMManager() {
         }) 
     };
 
-    let popupSubmitEventListener = function(editTaskCallback) {
+    let popupSubmitEventListener = function(editTaskCallback, newTaskCallback) {
         popup.addEventListener("submit", function(event) {
             event.preventDefault();
-            handleTaskFormSubmit(event.target, editTaskCallback);
+            handleTaskFormSubmit(event.target, editTaskCallback, newTaskCallback);
             hideTaskFormPopup();
         });
     };
+
+    projectCard.addEventListener("click", function(event) {
+        if (event.target.matches(".add-task-btn")) {
+            showTaskFormPopup(null, null, false);
+        }
+    });
 
 
     return {
