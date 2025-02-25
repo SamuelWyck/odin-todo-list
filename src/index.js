@@ -42,6 +42,7 @@ const app = (function() {
 
     DOMManager.DOMLoadedEvent(loadedEvent);
     DOMManager.taskDoneBtnClickEvent(toggleTaskDone);
+    DOMManager.taskCardClickEvent(taskDetailsEvent);
 
 
     function loadedEvent() {
@@ -75,7 +76,7 @@ const app = (function() {
         DOMManager.updateProjectPercentage(newPercentage);
     };
 
-    function editTaskEvent(event, projectId) {
+    function taskDetailsEvent(event, projectId) {
         const taskId = getTaskId(event);
         const project = todoList.getProject(projectId);
         const task = project.getTask(taskId);
