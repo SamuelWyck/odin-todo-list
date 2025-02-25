@@ -41,7 +41,7 @@ const app = (function() {
     const DOMManager = createDOMManager();
 
     DOMManager.DOMLoadedEvent(loadedEvent);
-    DOMManager.taskClickEvent(editTaskEvent, toggleTaskDone, removeTaskEvent, addTaskEvent)
+    DOMManager.taskDoneBtnClickEvent(toggleTaskDone);
 
 
     function loadedEvent() {
