@@ -5,7 +5,6 @@ import Task from "./task.js";
 const storageManager = (function() {
 
     const projectKeyPrefix = "p";
-    // const taskKeyPrefix = "t";
     const delimiter = "-";
 
     
@@ -13,9 +12,6 @@ const storageManager = (function() {
         return projectKeyPrefix + delimiter + String(projectId);
     };
 
-    // let getTaskKey = function(taskId, projectId) {
-    //     return taskKeyPrefix + delimiter + String(taskId) + delimiter + String(projectId);
-    // };
 
     let saveProject = function(project) {
         const JSONData = JSON.stringify(project);
@@ -23,23 +19,6 @@ const storageManager = (function() {
 
         localStorage.setItem(key, JSONData);
     };
-
-    // let removeProject = function(projectId) {
-    //     const key = getProjectKey(projectId);
-    //     localStorage.removeItem(key);
-    // };
-
-    // let addTask = function(projectId, task) {
-    //     const JSONData = JSON.stringify(task);
-    //     const key = getTaskKey(task.id, projectId);
-
-    //     localStorage.setItem(key, JSONData);
-    // };
-
-    // let removeTask = function(taskId, projectId) {
-    //     const key = getTaskKey(taskId, projectId);
-    //     localStorage.removeItem(key);
-    // };
 
     let reviveTaskObject = function(taskData) {
         const task = new Task(
