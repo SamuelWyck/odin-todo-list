@@ -46,7 +46,7 @@ const app = (function() {
     DOMManager.popupSubmitEventListener(editTaskEvent, newTaskEvent);
     DOMManager.projectClickEvent(getProject);
     DOMManager.projectPopupClickEventListeners(function() {});
-    DOMManager.projectPopupSubmitEventListener(editProjectEvent, function() {});
+    DOMManager.projectPopupSubmitEventListener(editProjectEvent, addProjectEvent);
 
 
     function loadedEvent() {
@@ -130,6 +130,11 @@ const app = (function() {
             return null;
         }
         project.title = newProjectTitle;
+        return project;
+    };
+
+    function addProjectEvent(newProjectTitle) {
+        const project = todoList.addProject(newProjectTitle);
         return project;
     };
 
