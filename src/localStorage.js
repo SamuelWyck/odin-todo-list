@@ -55,7 +55,7 @@ const storageManager = (function() {
     let populateTaskList = function(taskList) {
         const newTaskList = [];
 
-        for (taskData of taskList) {
+        for (let taskData of taskList) {
             const task = reviveTaskObject(taskData);
             newTaskList.push(task);
         }
