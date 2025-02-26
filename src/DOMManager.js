@@ -240,8 +240,8 @@ function createDOMManager() {
     let showProjectDeleteBtn = function(show=false) {
         if (show) {
             projectDelBtn.classList.remove("hidden");
-            projectPopupBtnsDiv.classList.remove("two-btn");
-            projectPopupBtnsDiv.classList.add("one-btn");
+            projectPopupBtnsDiv.classList.add("two-btn");
+            projectPopupBtnsDiv.classList.remove("one-btn");
         } else {
             projectDelBtn.classList.add("hidden");
             projectPopupBtnsDiv.classList.add("one-btn");
