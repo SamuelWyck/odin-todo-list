@@ -355,6 +355,18 @@ function createDOMManager() {
         }
     };
 
+    let selectProjectSelection = function(projectId) {
+        projectId = String(projectId);
+
+        for (let projectSelection of projectListDiv.children) {
+            if (projectSelection.dataset.projectid === projectId) {
+                projectSelection.classList.add("project-selected");
+            } else {
+                projectSelection.classList.remove("project-selected");
+            }
+        }
+    };
+
     let handleProjectFormSubmit = function(form, editProjectCallback, addProjectCallback) {
         const formData = new FormData(form);
         const projectEdit = formData.get("project-id") !== "-1";
@@ -367,7 +379,10 @@ function createDOMManager() {
                 updateProjectTitle(project);
             }
         } else {
-
+            const project = addProjectCallback(newProjectTitle);
+            createProjectSelection(project, -1);
+            selectProjectSelection(project.id);
+            displayProject(project);
         }
     };
 
