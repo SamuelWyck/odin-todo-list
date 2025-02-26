@@ -47,6 +47,7 @@ const app = (function() {
     DOMManager.projectClickEvent(getProject);
     DOMManager.projectPopupClickEventListeners(function() {});
     DOMManager.projectPopupSubmitEventListener(editProjectEvent, addProjectEvent);
+    DOMManager.projectSelectionClickEvent(getProject);
 
 
     function loadedEvent() {
