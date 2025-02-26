@@ -45,7 +45,7 @@ const app = (function() {
     DOMManager.popupClickEventListeners(removeTaskEvent);
     DOMManager.popupSubmitEventListener(editTaskEvent, newTaskEvent);
     DOMManager.projectClickEvent(getProject);
-    DOMManager.projectPopupClickEventListeners(function() {});
+    DOMManager.projectPopupClickEventListeners(deleteProjectEvent);
     DOMManager.projectPopupSubmitEventListener(editProjectEvent, addProjectEvent);
     DOMManager.projectSelectionClickEvent(getProject);
 
@@ -137,6 +137,16 @@ const app = (function() {
     function addProjectEvent(newProjectTitle) {
         const project = todoList.addProject(newProjectTitle);
         return project;
+    };
+
+    function deleteProjectEvent(projectId) {
+        const removedProject = todoList.removeProject(projectId);
+        if (removedProject === null) {
+            return null;
+        }
+
+        const defaultProject = todoList.getProject(todoList.getDefaultProjectId());
+        return defaultProject;
     };
 
 
