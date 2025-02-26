@@ -46,6 +46,7 @@ const app = (function() {
     DOMManager.popupSubmitEventListener(editTaskEvent, newTaskEvent);
     DOMManager.projectClickEvent(getProject);
     DOMManager.projectPopupClickEventListeners(function() {});
+    DOMManager.projectPopupSubmitEventListener(editProjectEvent, function() {});
 
 
     function loadedEvent() {
@@ -120,6 +121,15 @@ const app = (function() {
 
     function getProject(projectId) {
         const project = todoList.getProject(projectId);
+        return project;
+    };
+
+    function editProjectEvent(projectId, newProjectTitle) {
+        const project = todoList.getProject(projectId);
+        if (project.id === todoList.getDefaultProjectId()) {
+            return null;
+        }
+        project.title = newProjectTitle;
         return project;
     };
 
