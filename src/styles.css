@@ -244,7 +244,7 @@ footer {
     display: none;
 }
 
-.popup {
+.popup, .project-popup {
     position: absolute;
     width: fit-content;
     left: 0;
@@ -257,12 +257,12 @@ footer {
     border: 4px solid #cf0404;
 }
 
-.exit-btn-div {
+.exit-btn-div, .project-popup-exit-div {
     display: flex;
     justify-content: flex-end;
 }
 
-.popup label {
+.popup label, .project-popup label {
     display: block;
     color: #cf0404;
     font-weight: bold;
@@ -276,7 +276,7 @@ footer {
     flex-wrap: wrap;
 }
 
-.popup input, .popup select, .popup textarea {
+.popup input, .popup select, .popup textarea, .project-popup input {
     outline: none;
     height: 2.5rem;
     font-size: 1.3rem;
@@ -296,7 +296,7 @@ footer {
     padding: .5rem;
 }
 
-.del-save-btn-div {
+.del-save-btn-div, .project-btns-div {
     display: flex;
 }
 
@@ -308,7 +308,7 @@ footer {
     justify-content: flex-end;
 }
 
-.popup button {
+.popup button, .project-popup button {
     cursor: pointer;
     font-size: 1.3rem;
     border: .2rem solid #cf0404;
@@ -319,7 +319,7 @@ footer {
     border-radius: 10px;
 }
 
-.exit-btn-div button {
+.exit-btn-div button, .project-popup-exit-div button {
     padding: .4rem .7rem;
     font-weight: bolder;
 }
