@@ -46,7 +46,9 @@ const storageManager = (function() {
             taskData.title, 
             taskData.description, 
             0, 0, 0, 
-            taskData.priority, taskData.id
+            taskData.priority, 
+            taskData.completed, 
+            taskData.id
         );
         task.dueDate = new Date(taskData.dueDate);
         return task;
