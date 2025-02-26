@@ -57,9 +57,9 @@ function createDOMManager() {
 
         if (completed) {
             btn.classList.add(btnDoneClass);
-        } else {
-            btn.classList.add(btnNotDoneClass);
-        }
+        } 
+        btn.classList.add(btnNotDoneClass);
+    
 
         return btn;
     };
