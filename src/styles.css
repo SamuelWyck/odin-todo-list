@@ -131,6 +131,14 @@ footer {
     border-radius: 20px 20px 0px 0px;
 }
 
+.project-info {
+    cursor: pointer;
+}
+
+.project-info:hover {
+    color: #cf0404;
+}
+
 .project-footer {
     border-radius: 0px 0px 20px 20px;
 }
