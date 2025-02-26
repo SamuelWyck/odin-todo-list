@@ -10,6 +10,11 @@ function createDOMManager() {
     const projectListDiv = document.querySelector(".project-list");
     const addProjectBtn = document.querySelector(".add-project-btn");
 
+    const projectPopup = document.querySelector(".project-popup");
+    const projectNameInput = document.querySelector("input[name='project-name']");
+    const projectPopupBtnsDiv = document.querySelector(".project-btns-div");
+    const projectDelBtn = document.querySelector(".del-project-btn");
+
     const popup = document.querySelector(".popup");
     const hiddenInput = document.querySelector("input[name='id']");
     const titleInput = document.querySelector("#title");
@@ -226,6 +231,45 @@ function createDOMManager() {
         popupShowing = true;
     };
 
+    let clearProjectForm = function() {
+        projectNameInput.value = "";
+    };
+
+    let showProjectDeleteBtn = function(show=false) {
+        if (show) {
+            projectDelBtn.classList.remove("hidden");
+            projectPopupBtnsDiv.classList.remove("two-btn");
+            projectPopupBtnsDiv.classList.add("one-btn");
+        } else {
+            projectDelBtn.classList.add("hidden");
+            projectPopupBtnsDiv.classList.add("one-btn");
+            projectPopupBtnsDiv.classList.remove("two-btn");
+        }
+    };
+
+    let populateProjectForm = function(project) {
+        projectNameInput.value = project.title;
+    };
+
+    let hideProjectFormPopup = function() {
+        projectPopup.classList.add("hidden");
+        popupShowing = false;
+    };
+
+    let showProjectFormPopup = function(getProjectCallback, edit=false) {
+        if (edit) {
+            const projectId = getCurrentProjectId();
+            const project = getProjectCallback(projectId);
+            populateProjectForm(project);
+            showProjectDeleteBtn(true);
+        } else {
+            clearProjectForm();
+            showProjectDeleteBtn(false);
+        }
+        projectPopup.classList.remove("hidden");
+        popupShowing = true;
+    };
+
     let hideTaskFormPopup = function() {
         popup.classList.add("hidden");
         popupShowing = false;
@@ -337,6 +381,30 @@ function createDOMManager() {
         }
     });
 
+    addProjectBtn.addEventListener("click", function() {
+        if (!popupShowing) {
+            showProjectFormPopup(null, false);
+        }
+    });
+
+    let projectClickEvent = function(getProjectCallback) {
+        projectInfoDiv.addEventListener("click", function() {
+            if (!popupShowing) {
+                showProjectFormPopup(getProjectCallback, true);
+            }
+        });
+    };
+
+    let projectPopupClickEventListeners = function(deleteProjectCallback) {
+        projectPopup.addEventListener("click", function(event) {
+            if (event.target.matches(".project-popup-exit")) {
+                hideProjectFormPopup();
+            } else if (event.target.matches(".del-project-btn")) {
+
+            }
+        });
+    };
+
 
     return {
         "displayProject": displayProject,
@@ -348,6 +416,8 @@ function createDOMManager() {
         "taskClickEvent": taskClickEvent,
         "popupClickEventListeners": popupClickEventListeners,
         "popupSubmitEventListener": popupSubmitEventListener,
+        "projectClickEvent": projectClickEvent,
+        "projectPopupClickEventListeners": projectPopupClickEventListeners,
     };
 };
 
