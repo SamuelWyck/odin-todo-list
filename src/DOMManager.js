@@ -338,6 +338,17 @@ function createDOMManager() {
         projectListDiv.appendChild(para);
     };
 
+    let removeProjectSelection = function(projectId) {
+        projectId = String(projectId);
+
+        for (let projectSelection of projectListDiv.children) {
+            if (projectSelection.dataset.projectid === projectId) {
+                projectSelection.remove();
+                break;
+            }
+        }
+    };
+
     let displayProjectList = function(projectList, defaultProjectId) {
         for (let project of projectList) {
             createProjectSelection(project, defaultProjectId);
@@ -391,6 +402,18 @@ function createDOMManager() {
         const project = getProjectCallback(projectId);
         selectProjectSelection(project.id);
         displayProject(project);
+    };
+
+    let handleProjectDelete = function(deleteProjectCallback) {
+        const projectId = getCurrentProjectId();
+        const defaultProject = deleteProjectCallback(projectId);
+        if (defaultProject === null) {
+            return;
+        }
+
+        removeProjectSelection(projectId);
+        displayProject(defaultProject);
+        selectProjectSelection(defaultProject.id);
     };
 
     let taskClickEvent = function(doneBtnCallback, getTaskCallback) {
@@ -452,7 +475,8 @@ function createDOMManager() {
             if (event.target.matches(".project-popup-exit")) {
                 hideProjectFormPopup();
             } else if (event.target.matches(".del-project-btn")) {
-
+                handleProjectDelete(deleteProjectCallback);
+                hideProjectFormPopup();
             }
         });
     };
