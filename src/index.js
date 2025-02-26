@@ -63,7 +63,6 @@ const app = (function() {
     
     function loadData() {
         const projectList = storage.getProjects();
-        // console.log(projectList)
         if (projectList.length > 0) {
             todoList.setProjectList(projectList);
         }
@@ -79,9 +78,7 @@ const app = (function() {
     function toggleTaskDone(event, projectId) {
         const taskId = getTaskId(event);
         const project = todoList.getProject(projectId);
-        // console.log(project)
         const task = project.getTask(taskId);
-        // console.log(task)
         task.toggleCompleted();
         DOMManager.updateTask(task);
 
