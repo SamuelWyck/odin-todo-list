@@ -1,11 +1,11 @@
 import { format } from "date-fns";
 
-function Task(title, description, dueYear, dueMonth, dueDay, priority, id=null) {
+function Task(title, description, dueYear, dueMonth, dueDay, priority, completed, id=null) {
     this.title = title;
     this.description = description;
     this.dueDate = new Date(dueYear, dueMonth, dueDay);
     this.priority = priority;
-    this.completed = false;
+    this.completed = completed;
     this.id = id;
     if (this.id === null) {
         this.id = Date.now();
