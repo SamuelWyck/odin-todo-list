@@ -48,6 +48,7 @@ const app = (function() {
     DOMManager.projectPopupClickEventListeners(deleteProjectEvent);
     DOMManager.projectPopupSubmitEventListener(editProjectEvent, addProjectEvent);
     DOMManager.projectSelectionClickEvent(getProject);
+    DOMManager.unloadedEvent(DOMUnloadedEvent);
 
 
     function loadedEvent() {
@@ -149,5 +150,8 @@ const app = (function() {
         return defaultProject;
     };
 
+    function DOMUnloadedEvent() {
+        storageManager.saveProjects(todoList.getProjectList());
+    };
 
 })();
