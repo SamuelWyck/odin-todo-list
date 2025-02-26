@@ -45,6 +45,7 @@ const app = (function() {
     DOMManager.popupClickEventListeners(removeTaskEvent);
     DOMManager.popupSubmitEventListener(editTaskEvent, newTaskEvent);
     DOMManager.projectClickEvent(getProject);
+    DOMManager.projectPopupClickEventListeners(function() {});
 
 
     function loadedEvent() {
