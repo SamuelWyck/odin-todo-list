@@ -12,6 +12,7 @@ function createDOMManager() {
 
     const projectPopup = document.querySelector(".project-popup");
     const projectNameInput = document.querySelector("input[name='project-name']");
+    const projectHiddenInput = document.querySelector("input[name='project-id']");
     const projectPopupBtnsDiv = document.querySelector(".project-btns-div");
     const projectDelBtn = document.querySelector(".del-project-btn");
 
@@ -232,6 +233,7 @@ function createDOMManager() {
     };
 
     let clearProjectForm = function() {
+        projectHiddenInput.value = -1;
         projectNameInput.value = "";
     };
 
@@ -248,6 +250,7 @@ function createDOMManager() {
     };
 
     let populateProjectForm = function(project) {
+        projectHiddenInput.value = project.id;
         projectNameInput.value = project.title;
     };
 
@@ -341,6 +344,33 @@ function createDOMManager() {
         }
     };
 
+    let updateProjectTitle = function(project) {
+        projectTitleSpan.textContent = project.title;
+
+        for (let projectSelect of projectListDiv.children) {
+            if (Number(projectSelect.dataset.projectid) === project.id) {
+                projectSelect.textContent = project.title;
+                break;
+            }
+        }
+    };
+
+    let handleProjectFormSubmit = function(form, editProjectCallback, addProjectCallback) {
+        const formData = new FormData(form);
+        const projectEdit = formData.get("project-id") !== "-1";
+        const newProjectTitle = formData.get("project-name");
+
+        if (projectEdit) {
+            const projectId = getCurrentProjectId();
+            const project = editProjectCallback(projectId, newProjectTitle);
+            if (project !== null) {
+                updateProjectTitle(project);
+            }
+        } else {
+
+        }
+    };
+
     let taskClickEvent = function(doneBtnCallback, getTaskCallback) {
         projectTasksDiv.addEventListener("click", function(event) {
             if (event.target.matches("button") && !popupShowing) {
@@ -405,6 +435,14 @@ function createDOMManager() {
         });
     };
 
+    let projectPopupSubmitEventListener = function(editProjectCallback, addProjectCallback) {
+        projectPopup.addEventListener("submit", function(event) {
+            event.preventDefault();
+            handleProjectFormSubmit(event.target, editProjectCallback, addProjectCallback);
+            hideProjectFormPopup();
+        });
+    };
+
 
     return {
         "displayProject": displayProject,
@@ -418,6 +456,7 @@ function createDOMManager() {
         "popupSubmitEventListener": popupSubmitEventListener,
         "projectClickEvent": projectClickEvent,
         "projectPopupClickEventListeners": projectPopupClickEventListeners,
+        "projectPopupSubmitEventListener": projectPopupSubmitEventListener,
     };
 };
 
