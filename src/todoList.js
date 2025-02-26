@@ -21,6 +21,7 @@ const todoList = (function() {
     };
 
     let removeProject = function(id) {
+        id = Number(id);
         if (id === defaultProjectId) {
             return null;
         }
