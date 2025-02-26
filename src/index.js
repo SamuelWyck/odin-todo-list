@@ -1,6 +1,5 @@
 import "./styles.css";
 import storageManager from "./localStorage.js";
-import createProject from "./project.js";
 import todo from "./todoList.js";
 import createDOMManager from "./DOMManager.js";
 // import Task from "./task.js";
