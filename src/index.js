@@ -5,12 +5,13 @@ import todo from "./todoList.js";
 import createDOMManager from "./DOMManager.js";
 // import Task from "./task.js";
 
-
+// console.log(storageManager.getProjects())
 // const project = createProject("test");
+// console.log(project);
 
 // const task = project.addTask("task", "we we", 2025, 2, 23, 0);
 
-// storageManager.addProject(project)
+// storageManager.saveProjects([project])
 
 // console.log(project.taskList)
 
@@ -62,6 +63,7 @@ const app = (function() {
     
     function loadData() {
         const projectList = storage.getProjects();
+        // console.log(projectList)
         if (projectList.length > 0) {
             todoList.setProjectList(projectList);
         }
@@ -77,7 +79,9 @@ const app = (function() {
     function toggleTaskDone(event, projectId) {
         const taskId = getTaskId(event);
         const project = todoList.getProject(projectId);
+        // console.log(project)
         const task = project.getTask(taskId);
+        // console.log(task)
         task.toggleCompleted();
         DOMManager.updateTask(task);
 
