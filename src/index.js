@@ -4,7 +4,6 @@ import todo from "./todoList.js";
 import createDOMManager from "./DOMManager.js";
 
 
-
 const app = (function() {
     const storage = storageManager;
     const todoList = todo;
