@@ -176,7 +176,7 @@ function createDOMManager() {
     };
 
     let unloadedEvent = function(callback) {
-        document.addEventListener("onbeforeunload", function() {
+        window.addEventListener("beforeunload", function() {
             callback();
         }); 
     };
