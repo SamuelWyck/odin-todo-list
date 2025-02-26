@@ -1,4 +1,4 @@
-import createProject from "./project.js";
+import Project from "./project.js";
 import Task from "./task.js";
 
 
@@ -67,7 +67,7 @@ const storageManager = (function() {
         const JSONData = localStorage.getItem(key);
         const projectData = JSON.parse(JSONData);
 
-        const project = createProject(projectData.title, projectData.id);
+        const project = new Project(projectData.title, projectData.id);
         project.taskList = populateTaskList(projectData.taskList);
         return project;
     };

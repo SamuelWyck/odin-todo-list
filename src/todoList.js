@@ -1,11 +1,11 @@
-import createProject from "./project.js";
+import Project from "./project.js";
 
 
 const todoList = (function() {
     const defaultProjectId = 0;
     let projectList = [];
 
-    const defaultProject = createProject("General Tasks", defaultProjectId);
+    const defaultProject = new Project("General Tasks", defaultProjectId);
     defaultProject.addTask("Clean Dishwasher", "Clean out filter and spray nozzels in the dishwasher.", 2025, 1, 28, 0, 0);
     defaultProject.addTask("Paint Living Room", "Paint the Living Room in two coats of peach colored paint.", 2025, 7, 13, 1, 1);
     defaultProject.addTask("Clean out Refrigerator", "Clean out the moldy food in the refrigerator.", 2025, 4, 5, 2, 2);
@@ -15,7 +15,7 @@ const todoList = (function() {
 
 
     let addProject = function(title) {
-        const project = createProject(title);
+        const project = new Project(title);
         projectList.push(project);
         return project;
     };

@@ -1,39 +1,39 @@
 import Task from "./task.js";
 
-function createProject(title, setId=null) {
-    let projectTitle = title;
-    let id = setId;
-    if (id === null) {
-        id = Date.now();
+function Project(title, setId=null) {
+    this.title = title;
+    this.id = setId;
+    if (this.id === null) {
+        this.id = Date.now();
     }
-    let taskList = [];
+    this.taskList = [];
 
 
-    let addTask = function(title, description, dueYear, dueMonth, dueDay, priority, id=null) {
+    this.addTask = function(title, description, dueYear, dueMonth, dueDay, priority, id=null) {
         const task = new Task(title, description, Number(dueYear), Number(dueMonth), Number(dueDay), priority, id);
-        taskList.push(task);
+        this.taskList.push(task);
         return task;
     };
 
-    let removeTask = function(taskId) {
+    this.removeTask = function(taskId) {
         let newTaskList = [];
         let removedTask = null;
         const id = Number(taskId);
 
-        for (let task of taskList) {
+        for (let task of this.taskList) {
             if (task.id !== id) {
                 newTaskList.push(task);
             } else {
                 removedTask = task;
             }
         }
-        taskList = newTaskList;
+        this.taskList = newTaskList;
         return removedTask;
     };
 
-    let getTask = function(taskId) {
+    this.getTask = function(taskId) {
         const id = Number(taskId);
-        for (let task of taskList) {
+        for (let task of this.taskList) {
             if (task.id === id) {
                 return task;
             }
@@ -41,8 +41,8 @@ function createProject(title, setId=null) {
         return null;
     };
 
-    let editTask = function(taskId, newInfo) {
-        const task = getTask(taskId);
+    this.editTask = function(taskId, newInfo) {
+        const task = this.getTask(taskId);
         if (task === null) {
             return null;
         }
@@ -54,14 +54,14 @@ function createProject(title, setId=null) {
         return task;
     };
 
-    let getCompletionPercentage = function() {
-        let totalTasks = taskList.length;
+    this.getCompletionPercentage = function() {
+        let totalTasks = this.taskList.length;
         if (totalTasks === 0) {
             return "0%";
         }
         let completedTasks = 0;
 
-        for (let task of taskList) {
+        for (let task of this.taskList) {
             if (task.completed) {
                 completedTasks += 1;
             }
@@ -70,18 +70,7 @@ function createProject(title, setId=null) {
         const percent = Math.round((completedTasks / totalTasks) * 100);
         return `${percent}%`;
     };
-
-    return {
-        "id": id,
-        "title": projectTitle,
-        "taskList": taskList,
-        "addTask": addTask,
-        "removeTask": removeTask,
-        "getCompletionPercentage": getCompletionPercentage,
-        "getTask": getTask,
-        "editTask": editTask,
-    };
 }
 
 
-export default createProject;
+export default Project;
