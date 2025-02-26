@@ -190,6 +190,12 @@ footer {
     width: 35%;
 }
 
+.task-duedate {
+    /* width: 35%; */
+    min-width: 25%;
+    /* border: 1px solid black; */
+}
+
 .task-card button {
     border: none;
     background-color: inherit;
